@@ -16,11 +16,13 @@ class ComplaintController extends Controller
 
     public function __construct()
     {
-        $auth_user = User::find(Auth::user()->id);
-        $this->isAdmin = $auth_user->hasRole('Admin');
-        $this->isFreelancer = $auth_user->hasRole('Freelancer');
-        $this->isContractor = $auth_user->hasRole('Contractor');
-        $this->isJournalist = $auth_user->hasRole('Journalist');
+        if (!is_null(Auth::user())) {
+            $auth_user = User::find(Auth::user()->id);
+            $this->isAdmin = $auth_user->hasRole('Admin');
+            $this->isFreelancer = $auth_user->hasRole('Freelancer');
+            $this->isContractor = $auth_user->hasRole('Contractor');
+            $this->isJournalist = $auth_user->hasRole('Journalist');
+        }
     }
 
     public function index()
